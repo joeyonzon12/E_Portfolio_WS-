@@ -1,12 +1,36 @@
 /* =========================
    RESET
 ========================= */
+:root{
+    --purple-dark: #4C2365;
+    --purple: #7F5D99;
+    --purple-light: #9E7EB5;
+    --lavender: #C4A4DA;
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     scroll-behavior:smooth;
 }
+
+/* =========================
+   BODY
+========================= */
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:var(--lavender);
+    color:#333;
+    line-height:1.6;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-theme{
+    background:var(--purple-dark);
+    color:#f9fafb;
+}
+
 /* =========================
    NAVIGATION
 ========================= */
@@ -15,20 +39,85 @@ nav{
     top: 0;
     left: 0;
     width: 100%;
-    background: #003566;
+    background: var(--purple-dark);
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.nav-left{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Keep the theme control independently positioned on the right. */
+.theme-btn{
+    position: absolute;
+    right: 10%;
+}
+
+.logo-toggle,
+.theme-btn{
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.12);
+    color: white;
+    border-radius: 999px;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.logo-toggle:hover,
+.theme-btn:hover{
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+}
+
+.logo-toggle img{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info-card{
+    position: fixed;
+    top: 74px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    max-width: 320px;
+    width: calc(100% - 30px);
+    padding: 16px 18px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    z-index: 1100;
+}
+
+.info-card.active{
+    display: block;
 }
 
 nav ul{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     list-style: none;
-}
-
-nav ul li{
-    margin: 0 10px;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 nav ul li a{
@@ -42,28 +131,18 @@ nav ul li a{
 }
 
 nav ul li a:hover{
-    background: #0d6efd;
+    background: var(--purple);
     border-radius: 5px;
-}
-
-/* =========================
-   BODY
-========================= */
-body{
-    font-family: Arial, Helvetica, sans-serif;
-    background:#f5f7fa;
-    color:#333;
-    line-height:1.6;
 }
 
 /* =========================
    HEADER
 ========================= */
 header{
-    background:linear-gradient(135deg,#0d6efd,#003566);
+    background:linear-gradient(135deg,var(--purple),var(--purple-dark));
     color:white;
     text-align:left;
-    padding:90px 20px;
+    padding:120px 10% 90px;
 }
 
 header h1{
@@ -84,7 +163,6 @@ header p{
     font-size:1.2rem;
 }
 
-
 /* =========================
    SECTIONS
 ========================= */
@@ -94,37 +172,83 @@ section{
 
 section h2{
     text-align:center;
-    color:#003566;
+    color:var(--purple-dark);
     margin-bottom:30px;
     font-size:2rem;
 }
 
 section h3{
     margin-top:25px;
-    color:#0d6efd;
+    color:var(--purple);
+    font-size: large;
+}
+
+section h4{
+    margin-top:20px;
+    color:var(--purple);
+    font-size: large;
+}
+
+section h5{
+    margin-top:20px;
+    color:var(--purple);
+    font-size: large;
+}
+
+section h6{
+    margin-top:20px;
+    color:var(--purple);
+    font-size: large;
+}
+
+section h7{
+    margin-top:20px;
+    color:var(--purple);
+    font-size: large;
 }
 
 /* =========================
    ABOUT
 ========================= */
 #about{
-    text-align:center;
+    text-align:left;
+}
+
+.about-content{
+    display:flex;
+    align-items:center;
+    gap:40px;
+}
+
+.about-image{
+    flex:0 0 320px;
 }
 
 .profile{
-    width:180px;
-    height:180px;
+    width:320px;
+    height:320px;
     border-radius:50%;
-    border:5px solid #0d6efd;
+    border:5px solid var(--purple);
     object-fit:cover;
-    margin-bottom:25px;
     box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.about-text{
+    flex:1;
 }
 
 #about p{
     max-width:800px;
-    margin:auto;
     font-size:18px;
+}
+
+.education-list{
+    margin: 15px 0 0 25px;
+    font-size: 18px;
+}
+
+.education-list li{
+    margin-bottom: 4px;
 }
 
 /* =========================
@@ -140,16 +264,19 @@ section h3{
 }
 
 .skills-list li{
-    background:#0d6efd;
+    flex:1 1 180px;
+    max-width:220px;
+    background:var(--purple);
     color:white;
     padding:15px 30px;
     border-radius:30px;
     font-weight:bold;
+    text-align:center;
     transition:.3s;
 }
 
 .skills-list li:hover{
-    background:#003566;
+    background:var(--purple-dark);
     transform:translateY(-5px);
 }
 
@@ -157,19 +284,21 @@ section h3{
    PROJECTS
 ========================= */
 .project-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    display:flex;
+    flex-wrap:wrap;
     gap:25px;
     margin-top:30px;
 }
 
 .project-card{
-    background:white;
+    flex:0 0 calc(33.333% - 17px);
+    display:flex;
+    flex-direction:column;
+    background:var(--purple-light);
     border-radius:15px;
     overflow:hidden;
     box-shadow:0 5px 15px rgba(0,0,0,.15);
     transition:.3s;
-    text-align:center;
 }
 
 .project-card:hover{
@@ -180,15 +309,31 @@ section h3{
     width:100%;
     height:200px;
     object-fit:cover;
-    background:#ddd;
+    background:var(--lavender);
 }
 
 .project-card h3{
-    margin:15px 0;
+    margin:15px 20px 8px;
 }
 
 .project-card p{
-    padding:0 20px 20px;
+    padding:0 20px 15px;
+}
+
+.project-btn{
+    display:inline-block;
+    margin:0 20px 20px;
+    padding:10px 16px;
+    background:var(--purple);
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+    align-self:flex-start;
+    transition:.3s;
+}
+
+.project-btn:hover{
+    background:var(--purple-dark);
 }
 
 /* =========================
@@ -199,7 +344,7 @@ section h3{
 }
 
 #contact a{
-    color:#0d6efd;
+    color:var(--purple-dark);
     text-decoration:none;
 }
 
@@ -211,7 +356,7 @@ section h3{
    FOOTER
 ========================= */
 footer{
-    background:#222;
+    background:var(--purple-dark);
     color:white;
     text-align:center;
     padding:20px;
@@ -220,26 +365,80 @@ footer{
 /* =========================
    RESPONSIVE
 ========================= */
-@media(max-width:768px){
+@media (max-width:992px){
+    .project-card{
+        flex:0 0 calc(50% - 13px);
+    }
+}
 
-    header h2{
-        font-size:2.2rem;
+@media (max-width:768px){
+    nav{
+        padding:15px 20px;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .nav-left{
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .theme-btn{
+        position: static;
     }
 
     nav ul{
-        flex-direction:column;
+        position: static;
+        transform: none;
     }
 
-    nav ul li{
-        text-align:center;
+    .info-card{
+        top: 120px;
+        width: calc(100% - 30px);
+    }
+
+    header{
+        padding:135px 20px 70px;
+    }
+
+    header h2{
+        font-size:2.2rem;
     }
 
     section{
         padding:40px 20px;
     }
 
-    .profile{
-        width:150px;
-        height:150px;
+    .about-content{
+        flex-direction:column;
+        text-align:center;
+        gap:20px;
+    }
+
+    .education-list{
+        list-style-position: inside;
+        margin-left: 0;
+    }
+
+    .about-image{
+        margin:0 auto;
+    }
+
+    .project-card{
+        flex:0 0 calc(50% - 13px);
+    }
+}
+
+@media (max-width:576px){
+    header h2{
+        font-size:2.2rem;
+    }
+
+    .project-card{
+        flex:0 0 100%;
+    }
+
+    .skills-list li{
+        max-width:100%;
     }
 }
